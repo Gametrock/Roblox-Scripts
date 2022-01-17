@@ -8,7 +8,7 @@ local db = false
 
 --Function to execute when an object is added to Workspace
 function ChildAdded(child)
-    if child.ClassName == "Tool" then
+    if child.ClassName == "Tool" and child.Parent == workspace then
         if db then repeat task.wait() until db == false end
         db = true
         local oldCFrame = player.Character:WaitForChild("HumanoidRootPart").CFrame
