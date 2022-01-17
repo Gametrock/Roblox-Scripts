@@ -2,15 +2,20 @@
 
 --Save the player in a variable
 local player = game:GetService("Players").LocalPlayer
-repeat task.wait() until player.Character
+
+--Stops the script from glitching out if many items spawns at the exact same time
+local db = false
 
 --Function to execute when an object is added to Workspace
 function ChildAdded(child)
     if child.ClassName == "Tool" then
+        if db then repeat task.wait() until db == false end
+        db = true
         local oldCFrame = player.Character:WaitForChild("HumanoidRootPart").CFrame
         player.Character:SetPrimaryPartCFrame(child:WaitForChild("Handle").CFrame)
         repeat player.Character:SetPrimaryPartCFrame(child.Handle.CFrame) task.wait() until child.Parent == player.Character
         player.Character:SetPrimaryPartCFrame(oldCFrame)
+        db = false
     end
 end
 
