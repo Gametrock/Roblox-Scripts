@@ -2,13 +2,14 @@
 
 --Save the player in a variable
 local player = game:GetService("Players").LocalPlayer
+repeat task.wait() until player.Character
 
 --Function to execute when an object is added to Workspace
 function ChildAdded(child)
     if child.ClassName == "Tool" then
         local oldCFrame = player.Character:WaitForChild("HumanoidRootPart").CFrame
         player.Character:SetPrimaryPartCFrame(child:WaitForChild("Handle").CFrame)
-        repeat task.wait() until child.Parent == player.Character
+        repeat player.Character:SetPrimaryPartCFrame(child.Handle.CFrame) task.wait() until child.Parent == player.Character
         player.Character:SetPrimaryPartCFrame(oldCFrame)
     end
 end
